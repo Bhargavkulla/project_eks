@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 423623849965.dkr.ecr.us-east-1.amazonaws.com
+  build:
+    commands:
+      - docker build -t frontend-ecommerce ./frontend
+      - docker tag frontend-ecommerce:latest 423623849965.dkr.ecr.us-east-1.amazonaws.com/frontend-ecommerce:latest
+  post_build:
+    commands:
+      - docker push 423623849965.dkr.ecr.us-east-1.amazonaws.com/frontend-ecommerce:latest
+artifacts:
+  files: '**/*'
