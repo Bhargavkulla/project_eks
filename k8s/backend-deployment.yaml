@@ -1,4 +1,3 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,6 +14,12 @@ spec:
     spec:
       containers:
       - name: backend
-        image: bhargavakulla/backend-ecommerce:latest
+        image: 423623849965.dkr.ecr.us-east-1.amazonaws.com/backend-ecommerce:latest
         ports:
         - containerPort: 8000
+        env:
+        - name: DJANGO_SETTINGS_MODULE
+          value: backend.settings
+        envFrom:
+        - secretRef:
+            name: mysql-secret
